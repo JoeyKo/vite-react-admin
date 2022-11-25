@@ -11,6 +11,16 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "chart.js": "^4.0.1",
     "react": "^18.2.0",
@@ -32,6 +42,7 @@
     "eslint-plugin-react": "^7.31.11",
     "happy-dom": "^7.7.0",
     "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.19",
     "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.2.4",
