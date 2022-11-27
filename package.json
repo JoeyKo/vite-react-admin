@@ -22,6 +22,10 @@
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/material": "^5.10.15",
     "chart.js": "^4.0.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.0.1",
@@ -37,15 +41,13 @@
     "@typescript-eslint/parser": "^5.44.0",
     "@vitejs/plugin-react": "^2.2.0",
     "@vitest/coverage-c8": "^0.25.3",
-    "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
     "happy-dom": "^7.7.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
-    "postcss": "^8.4.19",
     "react-test-renderer": "^18.2.0",
-    "tailwindcss": "^3.2.4",
+    "sass": "^1.56.1",
     "typescript": "^4.6.4",
     "vite": "^3.2.3",
     "vitest": "^0.25.3"

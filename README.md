@@ -2,5 +2,6 @@
 
 - vite
 - react
-- tailwindcss
+- mui
 - react-router
+- typescript
