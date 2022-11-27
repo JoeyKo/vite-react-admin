@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import Dashboard from "./routes/Dashboard";
 import CssBaseline from '@mui/material/CssBaseline';
-import ToggleColorMode from './components/ToggleColorMode';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Layout from './components/Layout';
 
