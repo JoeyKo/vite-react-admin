@@ -23,13 +23,13 @@ ChartJS.register(
   Filler,
   Legend
 );
-import Button from '@mui/material/Button';
+import { Button } from 'antd';
 
 export default function User() {
 
   return (
     <>
-      <Button variant="contained">Hello World</Button>
+      <Button type='primary'>Hello World</Button>
     </>
   )
 }

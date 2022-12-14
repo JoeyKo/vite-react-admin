@@ -7,7 +7,7 @@ A minimal admin template.
 vite
 react
 react-router
-mui
+antd
 typescript
 ```
 
