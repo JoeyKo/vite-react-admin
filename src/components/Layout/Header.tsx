@@ -1,17 +1,8 @@
+import { Layout } from 'antd';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import ToggleColorMode from '../ToggleColorMode';
 
-export default function Header({
-  colorMode,
-}: {
-  colorMode: {
-    toggleColorMode: () => void;
-  },
-}) {
+export default function Header() {
   return (
-    <Box>
-      <ToggleColorMode colorMode={colorMode} />
-    </Box>
+    <Layout></Layout>
   )
 }

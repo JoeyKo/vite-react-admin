@@ -24,7 +24,6 @@ ChartJS.register(
   Legend
 );
 import { faker } from '@faker-js/faker';
-import Button from '@mui/material/Button';
 
 export default function Dashboard() {
   const [data, setData] = useState<ChartData<"line", (number | ScatterDataPoint | null)[], unknown>>({
@@ -61,7 +60,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <Button variant="contained">Hello World</Button>
       <Line options={options} data={data} />
     </>
   )
