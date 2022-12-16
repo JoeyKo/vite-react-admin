@@ -2,7 +2,7 @@ import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import React from "react";
 
 const Dashboard = React.lazy(() => import('../routes/Dashboard'));
-const User = React.lazy(() => import('../routes/User'));
+const Menu = React.lazy(() => import('../routes/Menu'));
 
 export interface IMenuItem {
   route?: string;
@@ -27,16 +27,15 @@ const menu: IMenuItem[] = [
       {
         route: "/menu",
         text: "二级菜单1",
-        component: <User />
+        component: <Menu />
       },
       {
         text: "二级菜单2",
-        component: <User />,
+        component: <Menu />,
         children: [{
           route: "/sub-menu",
           text: "三级菜单",
-          component: <User />
-
+          component: <Menu />
         }]
       }
     ],
