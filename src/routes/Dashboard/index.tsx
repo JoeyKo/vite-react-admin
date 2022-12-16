@@ -11,12 +11,14 @@ import {
   Legend,
   ChartData,
   ScatterDataPoint,
+  BarElement,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Title,
   Tooltip,
@@ -26,9 +28,13 @@ ChartJS.register(
 import { faker } from '@faker-js/faker';
 
 export default function Dashboard() {
-  const [data, setData] = useState<ChartData<"line", (number | ScatterDataPoint | null)[], unknown>>({
+  const [lineData, setLineData] = useState<ChartData<"line", (number | ScatterDataPoint | null)[], unknown>>({
     labels: [], datasets: []
   });
+  const [barData, setBarData] = useState<ChartData<"bar", (number | ScatterDataPoint | null)[], unknown>>({
+    labels: [], datasets: []
+  });
+
   const options = {
     responsive: true,
     plugins: {
@@ -37,14 +43,15 @@ export default function Dashboard() {
       },
       title: {
         display: true,
-        text: 'Chart.js Line Chart',
+        text: 'Chart.js Chart',
       },
     },
   };
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  
   useEffect(() => {
-    setData({
+    setLineData({
       labels,
       datasets: [
         {
@@ -56,11 +63,27 @@ export default function Dashboard() {
         },
       ],
     })
+    setBarData({
+      labels,
+      datasets: [
+        {
+          label: 'Dataset 1',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+        {
+          label: 'Dataset 2',
+          data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+      ],
+    })
   }, []);
 
   return (
     <>
-      <Line options={options} data={data} />
+      <Line options={options} data={lineData} />
+      <Bar options={options} data={barData} />
     </>
   )
 }

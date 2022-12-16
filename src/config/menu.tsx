@@ -16,25 +16,25 @@ export interface IMenuItem {
 const menu: IMenuItem[] = [
   {
     route: "/",
-    text: "首页",
+    text: "控制台",
     icon: <DashboardOutlined />,
     component: <Dashboard />,
   },
   {
-    text: "用户",
+    text: "一级菜单",
     icon: <UserOutlined />,
     children: [
       {
-        route: "/user",
-        text: "用户列表",
+        route: "/menu",
+        text: "二级菜单1",
         component: <User />
       },
       {
-        text: "用户权限",
+        text: "二级菜单2",
         component: <User />,
         children: [{
-          route: "/permission",
-          text: "用户权限编辑",
+          route: "/sub-menu",
+          text: "三级菜单",
           component: <User />
 
         }]

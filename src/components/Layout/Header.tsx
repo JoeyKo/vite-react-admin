@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Avatar, Dropdown, MenuProps } from 'antd';
+import { Link } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   {
@@ -9,7 +10,7 @@ const items: MenuProps['items'] = [
   {
     key: 'logout',
     danger: true,
-    label: '退出登录',
+    label: <Link to="/login">退出登录</Link>,
   },
 ];
 
