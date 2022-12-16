@@ -4,17 +4,21 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { Layout } from 'antd';
 import menu, { IMenuItem } from './config/menu';
 import Header from './components/Layout/Header';
-import { Layout } from 'antd';
 import Sidebar from './components/Layout/Sidebar';
 
 export default function App() {
 
-  function getRoute(menuItem: IMenuItem) {
-    if (menuItem.children) { menuItem.children.forEach(getRoute) }
+  function getRoute(menuItem: IMenuItem): React.ReactNode {
+    if (menuItem.children) {
+      return menuItem.children.map(getRoute)
+    }
+
+    if (!menuItem.route) return null;
     return <Route
-      key={menuItem.text}
+      key={menuItem.route}
       path={menuItem.route}
       element={<React.Suspense fallback={<>...</>}>{menuItem.component}</React.Suspense>}
     />
@@ -34,15 +38,10 @@ export default function App() {
           <Sidebar />
         </Layout.Sider>
         <Layout style={{ marginLeft: 200 }}>
-          <Layout.Header style={{
-            position: 'fixed',
-            top: 0,
-            left: 200,
-            right: 0
-          }}>
+          <Layout.Header style={{ padding: "0 24px" }}>
             <Header />
           </Layout.Header>
-          <Layout.Content style={{ minHeight: 'calc(100vh - 64px)', marginTop: 64, padding: '24px' }}>
+          <Layout.Content style={{ padding: '24px' }}>
             <Routes>
               {menu.map(getRoute)}
             </Routes>

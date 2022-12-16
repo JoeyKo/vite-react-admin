@@ -28,9 +28,25 @@ const menu: IMenuItem[] = [
         route: "/user",
         text: "用户列表",
         component: <User />
+      },
+      {
+        text: "用户权限",
+        component: <User />,
+        children: [{
+          route: "/permission",
+          text: "用户权限编辑",
+          component: <User />
+
+        }]
       }
     ],
-  }
+  },
+  // {
+  //   text: "用户",
+  //   icon: <UserOutlined />,
+  //   route: "/user", 
+  //   component: <User />
+  // }
 ]
 
 export default menu;

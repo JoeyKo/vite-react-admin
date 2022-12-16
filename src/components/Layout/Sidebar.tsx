@@ -1,11 +1,9 @@
-import {
-  AppstoreOutlined, ContainerOutlined, DesktopOutlined, MailOutlined,
-  MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined
-} from '@ant-design/icons';
-import { Button, Menu, MenuProps } from 'antd';
-import Sider from 'antd/es/layout/Sider';
+import { Menu, MenuProps } from 'antd';
+import { MenuInfo } from 'rc-menu/lib/interface';
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import menu, { IMenuItem } from '../../config/menu';
+import styles from './index.module.scss';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -25,35 +23,68 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('Option 3', '3', <ContainerOutlined />),
-
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Option 7', '7'),
-    getItem('Option 8', '8'),
-  ]),
-
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-
-    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-  ]),
-];
+function getMenu(menuItem: IMenuItem): MenuItem {
+  return getItem(menuItem.text, menuItem.route ?? menuItem.text, menuItem.icon, menuItem.children?.map(getMenu))
+}
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [openKeys, setOpenKeys] = React.useState<string[]>([]);
+
+  function onMenuSelect(info: MenuInfo) {
+    navigate(info.key);
+  }
+
+  function onMenuOpenChange(keys: string[]) {
+    setOpenKeys(keys)
+  }
+
+  React.useEffect(() => {
+    setOpenKeys(getOpenedMenus())
+  }, [location.pathname])
+
+  function getOpenedMenus() {
+    let openedKeys: string[] = []
+    let shouldSkip = false;
+
+    const getSelectedMenu = (menuItem: IMenuItem) => {
+      if (menuItem.route && menuItem.route.indexOf(location.pathname) === 0) {
+        shouldSkip = true;
+        return;
+      }
+
+      if (menuItem.children) {
+        openedKeys.push(menuItem.text);
+
+        menuItem.children.forEach(item => {
+          if (shouldSkip) { return; }
+          getSelectedMenu(item)
+        });
+      }
+    }
+
+    menu.forEach(menuItem => {
+      openedKeys = [];
+      if (shouldSkip) { return; }
+      getSelectedMenu(menuItem);
+    })
+
+    return openedKeys;
+  }
 
   return (
-    <Menu
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      mode="inline"
-      theme="dark"
-      items={items}
-    />
+    <div>
+      <h1 className={styles.title}>Antd管理后台</h1>
+      <Menu
+        selectedKeys={[location.pathname]}
+        openKeys={openKeys}
+        mode="inline"
+        theme="dark"
+        items={menu.map(getMenu)}
+        onSelect={onMenuSelect}
+        onOpenChange={onMenuOpenChange}
+      />
+    </div>
   );
 }
