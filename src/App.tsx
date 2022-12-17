@@ -31,18 +31,16 @@ export default function App() {
     return <Route
       key={routeItem.route}
       path={routeItem.route}
-      errorElement={<NotFound />}
       element={<React.Suspense fallback={<Loading />}>{routeItem.component}</React.Suspense>}
     />
   }
 
   return (
-    <>
+    <React.Suspense fallback={<Loading />}>
       {location.pathname.indexOf("/login") === 0 ?
         <Routes>
           <Route
             path={"/login"}
-            errorElement={<NotFound />}
             element={<React.Suspense fallback={<Loading />}>{<Login />}</React.Suspense>}
           />
         </Routes>
@@ -71,6 +69,6 @@ export default function App() {
           </Layout>
         </Layout>
       }
-    </>
+    </React.Suspense>
   )
 }
