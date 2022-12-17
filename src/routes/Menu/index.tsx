@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-export default function Menu() {
+const Menu: React.FC = () => {
 
   return (
     <>
@@ -9,3 +9,5 @@ export default function Menu() {
     </>
   )
 }
+
+export default Menu;

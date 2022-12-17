@@ -2,7 +2,8 @@ import { Menu, MenuProps } from 'antd';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import * as React from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import menu, { IMenuItem } from '../../config/menu';
+import menu, { IRouteItem } from '../../config/route';
+import useUserStore from '../../store/user';
 import styles from './index.module.scss';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -23,13 +24,12 @@ function getItem(
   } as MenuItem;
 }
 
-function getMenu(menuItem: IMenuItem): MenuItem {
-  return getItem(menuItem.text, menuItem.route ?? menuItem.text, menuItem.icon, menuItem.children?.map(getMenu))
-}
-
 export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const userRole = useUserStore(state => state.role);
+
   const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
   function onMenuSelect(info: MenuInfo) {
@@ -44,16 +44,22 @@ export default function Sidebar() {
     setOpenKeys(getOpenedMenus())
   }, [location.pathname])
 
+  function getMenu(menuItem: IRouteItem): MenuItem {
+    if (!menuItem.roles?.includes(userRole)) return null;
+  
+    return getItem(menuItem.text, menuItem.route ?? menuItem.text, menuItem.icon, menuItem.children?.map(getMenu))
+  }
+  
   function getOpenedMenus() {
     let openedKeys: string[] = []
     let shouldSkip = false;
 
-    const getSelectedMenu = (menuItem: IMenuItem) => {
+    const getSelectedMenu = (menuItem: IRouteItem) => {
       if (menuItem.route && menuItem.route.indexOf(location.pathname) === 0) {
         shouldSkip = true;
         return;
       }
-
+      
       if (menuItem.children) {
         openedKeys.push(menuItem.text);
 
@@ -65,8 +71,8 @@ export default function Sidebar() {
     }
 
     menu.forEach(menuItem => {
-      openedKeys = [];
       if (shouldSkip) { return; }
+      openedKeys = [];
       getSelectedMenu(menuItem);
     })
 

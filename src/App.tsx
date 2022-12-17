@@ -5,25 +5,32 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Layout } from 'antd';
-import menu, { IMenuItem } from './config/menu';
+import routes, { IRouteItem } from './config/route';
 import Header from './components/Layout/Header';
 import Sidebar from './components/Layout/Sidebar';
+import useUserStore from './store/user';
 
+const NotFound = React.lazy(() => import("./components/NotFound"));
 const Login = React.lazy(() => import("./routes/Login"));
 
 export default function App() {
   const location = useLocation();
+  const userRole = useUserStore(state => state.role);
 
-  function getRoute(menuItem: IMenuItem): React.ReactNode {
-    if (menuItem.children) {
-      return menuItem.children.map(getRoute)
+  function getRoute(routeItem: IRouteItem): React.ReactNode {
+    if (routeItem.children) {
+      return routeItem.children.map(getRoute)
     }
 
-    if (!menuItem.route) return null;
+    if (!routeItem.route) return null;
+
+    // Role route checks.
+    if (!routeItem.roles?.includes(userRole)) return null;
+
     return <Route
-      key={menuItem.route}
-      path={menuItem.route}
-      element={<React.Suspense fallback={null}>{menuItem.component}</React.Suspense>}
+      key={routeItem.route}
+      path={routeItem.route}
+      element={<React.Suspense fallback={null}>{routeItem.component}</React.Suspense>}
     />
   }
 
@@ -48,13 +55,14 @@ export default function App() {
           }}>
             <Sidebar />
           </Layout.Sider>
-          <Layout style={{ marginLeft: 200 }}>
+          <Layout style={{ minHeight: '100vh', marginLeft: 200 }}>
             <Layout.Header style={{ padding: "0 24px" }}>
               <Header />
             </Layout.Header>
             <Layout.Content style={{ padding: '24px' }}>
               <Routes>
-                {menu.map(getRoute)}
+                <Route path='*' element={<NotFound />} />
+                {routes.map(getRoute)}
               </Routes>
             </Layout.Content>
           </Layout>
