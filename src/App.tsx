@@ -31,6 +31,7 @@ export default function App() {
     return <Route
       key={routeItem.route}
       path={routeItem.route}
+      errorElement={<NotFound />}
       element={<React.Suspense fallback={<Loading />}>{routeItem.component}</React.Suspense>}
     />
   }
@@ -41,6 +42,7 @@ export default function App() {
         <Routes>
           <Route
             path={"/login"}
+            errorElement={<NotFound />}
             element={<React.Suspense fallback={<Loading />}>{<Login />}</React.Suspense>}
           />
         </Routes>

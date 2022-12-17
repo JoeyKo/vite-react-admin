@@ -32,7 +32,7 @@ export default function Sidebar() {
 
   const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
-  function onMenuSelect(info: MenuInfo) {
+  function onMenuClick(info: MenuInfo) {
     navigate(info.key);
   }
 
@@ -45,21 +45,36 @@ export default function Sidebar() {
   }, [location.pathname])
 
   function getMenu(menuItem: IRouteItem): MenuItem {
-    if (!menuItem.roles?.includes(userRole)) return null;
-  
+    if (menuItem.hidden || !menuItem.roles?.includes(userRole)) return null;
+
     return getItem(menuItem.text, menuItem.route ?? menuItem.text, menuItem.icon, menuItem.children?.map(getMenu))
   }
-  
+
+  /**
+   * 获取展开的菜单
+   * @returns 
+   */
   function getOpenedMenus() {
     let openedKeys: string[] = []
     let shouldSkip = false;
 
     const getSelectedMenu = (menuItem: IRouteItem) => {
-      if (menuItem.route && menuItem.route.indexOf(location.pathname) === 0) {
-        shouldSkip = true;
-        return;
+      if (menuItem.route) {
+        const pathReg = new RegExp(/:[\w]+/, "g")
+        if (pathReg.test(menuItem.route)) {
+          const regStr = menuItem.route.replace(/:[\w]+/g, "[\\w]+")
+          const reg = new RegExp(regStr)
+
+          if (reg.test(location.pathname)) {
+            shouldSkip = true;
+            return;
+          }
+        } else if (menuItem.route === location.pathname) {
+          shouldSkip = true;
+          return;
+        }
       }
-      
+
       if (menuItem.children) {
         openedKeys.push(menuItem.text);
 
@@ -79,16 +94,58 @@ export default function Sidebar() {
     return openedKeys;
   }
 
+  /**
+   * 获取选中的菜单
+   * @returns 
+   */
+  function getSelectedMenus() {
+    let selectedKeys: string[] = [];
+    let shouldSkip = false;
+
+    const getSelectedMenu = (menuItem: IRouteItem) => {
+      const pathReg = new RegExp(/:[\w]+/, "g")
+      if (menuItem.route) {
+        if (pathReg.test(menuItem.route)) {
+          const regStr = menuItem.route.replace(/:[\w]+/g, "[\\w]+")
+          const reg = new RegExp(regStr)
+
+          if (reg.test(location.pathname)) {
+            shouldSkip = true;
+            selectedKeys.push(menuItem.selectedMenuRoute ?? menuItem.route)
+          }
+        } else if (menuItem.route === location.pathname) {
+          shouldSkip = true;
+          selectedKeys.push(menuItem.route)
+        }
+      }
+
+      if (menuItem.children) {
+        menuItem.children.forEach(item => {
+          if (shouldSkip) { return; }
+          getSelectedMenu(item)
+        });
+      }
+    }
+
+    menu.forEach(menuItem => {
+      if (shouldSkip) { return; }
+      selectedKeys = [];
+      getSelectedMenu(menuItem);
+    });
+
+    return selectedKeys;
+  }
+
   return (
     <div>
       <Link to="/"><h1 className={styles.title}>Antd管理后台</h1></Link>
       <Menu
-        selectedKeys={[location.pathname]}
+        selectedKeys={getSelectedMenus()}
         openKeys={openKeys}
         mode="inline"
         theme="dark"
         items={menu.map(getMenu)}
-        onSelect={onMenuSelect}
+        onClick={onMenuClick}
         onOpenChange={onMenuOpenChange}
       />
     </div>
