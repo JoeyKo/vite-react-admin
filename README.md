@@ -1,12 +1,12 @@
-## React Admin
+## Antd后台管理系统
 
-A minimal admin template.
+一个基于Antd快速构建的后台管理系统.
 
-### Stacks
+### Tech Stacks
 ```
-vite
-react
-react-router
-antd
-typescript
+vite v3
+react v18
+react-router v6
+antd v5
+typescript v4
 ```
