@@ -9,6 +9,7 @@ import routes, { IRouteItem } from './config/route';
 import Header from './components/Layout/Header';
 import Sidebar from './components/Layout/Sidebar';
 import useUserStore from './store/user';
+import Loading from './components/Loading';
 
 const NotFound = React.lazy(() => import("./components/NotFound"));
 const Login = React.lazy(() => import("./routes/Login"));
@@ -30,7 +31,7 @@ export default function App() {
     return <Route
       key={routeItem.route}
       path={routeItem.route}
-      element={<React.Suspense fallback={null}>{routeItem.component}</React.Suspense>}
+      element={<React.Suspense fallback={<Loading />}>{routeItem.component}</React.Suspense>}
     />
   }
 
@@ -40,7 +41,7 @@ export default function App() {
         <Routes>
           <Route
             path={"/login"}
-            element={<React.Suspense fallback={null}>{<Login />}</React.Suspense>}
+            element={<React.Suspense fallback={<Loading />}>{<Login />}</React.Suspense>}
           />
         </Routes>
         :
