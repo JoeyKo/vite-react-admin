@@ -4,7 +4,7 @@
 
 ### 依赖
 ```
-vite v3
+vite v4
 typescript v4
 react v18
 react-router v6
