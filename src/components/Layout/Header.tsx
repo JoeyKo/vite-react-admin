@@ -28,7 +28,7 @@ export default function Header() {
   }
 
   return (
-    <div className={styles.header} style={{ float: 'right' }}>
+    <div style={{ float: 'right' }}>
       <Space size="large" align="center">
         <FullscreenOutlined onClick={toggleFullscreen} style={{ fontSize: '18px', color: "#fff" }} />
         <Badge count={5}>

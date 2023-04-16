@@ -26,6 +26,7 @@ ChartJS.register(
   Legend
 );
 import { faker } from '@faker-js/faker';
+import { Col, Row } from 'antd';
 
 export default function Dashboard() {
   const [lineData, setLineData] = useState<ChartData<"line", (number | ScatterDataPoint | null)[], unknown>>({
@@ -81,9 +82,13 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
+    <Row>
+      <Col span={12}>
       <Line options={options} data={lineData} />
+      </Col>
+      <Col span={12}>
       <Bar options={options} data={barData} />
-    </>
+      </Col>
+    </Row>
   )
 }
