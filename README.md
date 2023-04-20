@@ -5,7 +5,7 @@
 ### 依赖
 ```
 vite v4
-typescript v4
+typescript v5
 react v18
 react-router v6
 antd v5
