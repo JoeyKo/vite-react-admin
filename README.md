@@ -15,6 +15,6 @@ chart.js v4
 ### 截图
 ![image](https://user-images.githubusercontent.com/16659637/233325890-c1886e3a-a8ab-4b54-b161-fc186e416290.png)
 
-![image](https://user-images.githubusercontent.com/16659637/233325736-14c6962d-e215-414a-8a3d-297f2179dc7f.png)
+![image](https://user-images.githubusercontent.com/16659637/233817876-b4af42dc-8612-441b-9c3e-4449cbf0ba9a.png)
 
 ![image](https://user-images.githubusercontent.com/16659637/233325841-e4c07bd0-2ad5-42fa-9b7b-9421f11add77.png)
