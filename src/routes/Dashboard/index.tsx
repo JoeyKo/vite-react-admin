@@ -26,7 +26,32 @@ ChartJS.register(
   Legend
 );
 import { faker } from '@faker-js/faker';
-import { Col, Row } from 'antd';
+import { Card, Col, Row, Statistic } from 'antd';
+import CountUp from 'react-countup';
+import { ArrowUpOutlined } from '@ant-design/icons';
+
+const formatter = (value: string | number) => <CountUp end={Number(value)} separator="," />;
+
+function StatisticCard({
+  title,
+  value,
+}: {
+  title: string;
+  value: string | number;
+}) {
+  return (
+    <Card bordered={false} style={{ width: '100%' }}>
+      <Statistic
+        title={title}
+        value={value}
+        precision={2}
+        formatter={formatter}
+        valueStyle={{ color: '#3f8600' }}
+        prefix={<ArrowUpOutlined />}
+      />
+    </Card>
+  )
+}
 
 export default function Dashboard() {
   const [lineData, setLineData] = useState<ChartData<"line", (number | ScatterDataPoint | null)[], unknown>>({
@@ -38,6 +63,7 @@ export default function Dashboard() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -50,7 +76,7 @@ export default function Dashboard() {
   };
 
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  
+
   useEffect(() => {
     setLineData({
       labels,
@@ -82,13 +108,43 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Row>
-      <Col span={12}>
-      <Line options={options} data={lineData} />
-      </Col>
-      <Col span={12}>
-      <Bar options={options} data={barData} />
-      </Col>
-    </Row>
+    <>
+      <Row gutter={8}>
+        <Col span={6}>
+          <StatisticCard title="实时销售额" value={21000} />
+        </Col>
+        <Col span={6}>
+          <StatisticCard title="实时销售额" value={21000} />
+        </Col>
+        <Col span={6}>
+          <StatisticCard title="实时销售额" value={21000} />
+        </Col>
+        <Col span={6}>
+          <StatisticCard title="实时销售额" value={21000} />
+        </Col>
+      </Row>
+      <Row gutter={8} style={{ marginTop: 25 }}>
+        <Col span={12}>
+          <Card>
+            <Line
+              options={options}
+              width={"100%"}
+              height={350}
+              data={lineData}
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card>
+            <Bar
+              options={options}
+              width={"100%"}
+              height={350}
+              data={barData}
+            />
+          </Card>
+        </Col>
+      </Row>
+    </>
   )
 }

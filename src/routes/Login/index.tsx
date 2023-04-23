@@ -18,7 +18,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.login}>
       <div className={styles.title}>
-        <h1>Antd管理后台 - 登录</h1>
+        <h1>管理后台 - 登录</h1>
       </div>
       <Form
         className={styles.form}

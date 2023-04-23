@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from 'antd';
+import { Menu, MenuProps, Space } from 'antd';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import * as React from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
@@ -138,7 +138,12 @@ export default function Sidebar() {
 
   return (
     <div>
-      <Link to="/"><h1 className={styles.title}>Antd管理后台</h1></Link>
+      <Link to="/">
+        <Space style={{ marginLeft: 15 }}>
+          <img src='vite.svg' />
+          <h1 className={styles.title}>Antd Admin</h1>
+        </Space>
+      </Link>
       <Menu
         selectedKeys={getSelectedMenus()}
         openKeys={openKeys}
