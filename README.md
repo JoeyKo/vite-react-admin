@@ -17,4 +17,4 @@ chart.js v4
 
 ![image](https://user-images.githubusercontent.com/16659637/233817876-b4af42dc-8612-441b-9c3e-4449cbf0ba9a.png)
 
-![image](https://user-images.githubusercontent.com/16659637/233325841-e4c07bd0-2ad5-42fa-9b7b-9421f11add77.png)
+![image](https://user-images.githubusercontent.com/16659637/233821138-376a4562-063c-4ff0-8778-d9ab759528ef.png)
