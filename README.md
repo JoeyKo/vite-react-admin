@@ -5,7 +5,7 @@
 ### 依赖
 ```
 vite v4
-typescript v4
+typescript v5
 react v18
 react-router v6
 antd v5
@@ -13,6 +13,8 @@ chart.js v4
 ```
 
 ### 截图
-<img width="1440" alt="截屏2022-12-17 下午12 38 17" src="https://user-images.githubusercontent.com/16659637/208225075-58abfb73-1c75-4f79-89ca-9dcc95bba7a8.png">
+![image](https://user-images.githubusercontent.com/16659637/233325890-c1886e3a-a8ab-4b54-b161-fc186e416290.png)
 
-<img width="1440" alt="截屏2022-12-17 下午12 37 34" src="https://user-images.githubusercontent.com/16659637/208225053-65cb82d8-0b3f-4352-8c8c-1780678c3cc6.png">
+![image](https://user-images.githubusercontent.com/16659637/233325736-14c6962d-e215-414a-8a3d-297f2179dc7f.png)
+
+![image](https://user-images.githubusercontent.com/16659637/233325841-e4c07bd0-2ad5-42fa-9b7b-9421f11add77.png)
